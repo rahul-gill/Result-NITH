@@ -166,8 +166,11 @@ func getResultsFromWeb() []domain.Student {
 			}
 			student, _, err := domain.ParseResultHtml(resultHtml)
 			if err == nil {
+				fmt.Printf("Success for rullNumber %s", rollNumber)
 				ch <- student
 			} else {
+				err = fmt.Errorf("error for rollNumber %s: %w", rollNumber, err)
+				log.Print(err)
 				ch <- nil
 			}
 		}(ch, rollNumber)
